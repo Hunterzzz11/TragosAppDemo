@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import tesis.hunterzzz.tragoapp.AppDadabase
 import tesis.hunterzzz.tragoapp.data.DataSourseImpl
 import tesis.hunterzzz.tragoapp.data.model.Drink
@@ -15,8 +17,7 @@ import tesis.hunterzzz.tragoapp.data.model.DrinkEntity
 import tesis.hunterzzz.tragoapp.databinding.FragmentTragosDetalleBinding
 import tesis.hunterzzz.tragoapp.domain.RepoImpl
 import tesis.hunterzzz.tragoapp.ui.viewmodel.MainViewModel
-import tesis.hunterzzz.tragoapp.ui.viewmodel.VMFactory
-
+@AndroidEntryPoint
 class TragosDetalleFragment : Fragment() {
 
     private lateinit var drink: Drink
@@ -25,17 +26,7 @@ class TragosDetalleFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> {
-        VMFactory(
-            RepoImpl(
-                DataSourseImpl(
-                    AppDadabase.getDatabase(
-                        requireActivity().applicationContext
-                    )
-                )
-            )
-        )
-    }
+    private val viewModel by activityViewModels<MainViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

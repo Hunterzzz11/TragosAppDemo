@@ -5,25 +5,27 @@ import tesis.hunterzzz.tragoapp.data.model.Drink
 import tesis.hunterzzz.tragoapp.data.model.DrinkEntity
 import tesis.hunterzzz.tragoapp.data.model.asFavoriteEntity
 import tesis.hunterzzz.tragoapp.domain.DataSourse
+import tesis.hunterzzz.tragoapp.domain.TragosDao
 import tesis.hunterzzz.tragoapp.vo.Resource
 import tesis.hunterzzz.tragoapp.vo.RetrofitClient
+import javax.inject.Inject
 
-class DataSourseImpl(private val appDadabase: AppDadabase):DataSourse {
+class DataSourseImpl @Inject constructor(private val tragosDao: TragosDao):DataSourse {
 
     override suspend fun getTragoByName(tragoName:String):Resource<List<Drink>>{
         return Resource.Success(RetrofitClient.webservice.getTragoByName(tragoName).drinkList)
     }
 
     override suspend fun insertTragoRoom(trago:DrinkEntity){
-        appDadabase.tragoDao().insertFavorite(trago)
+        tragosDao.insertFavorite(trago)
     }
 
     override suspend fun getTragosFavoritos(): Resource<List<DrinkEntity>> {
-        return Resource.Success(appDadabase.tragoDao().getAllFavoriteDrinks())
+        return Resource.Success(tragosDao.getAllFavoriteDrinks())
     }
 
     override suspend fun deleteDrink(drink: Drink) {
-        appDadabase.tragoDao().deleteDrink(drink.asFavoriteEntity())
+        tragosDao.deleteDrink(drink.asFavoriteEntity())
 
     }
 

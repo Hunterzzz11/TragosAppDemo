@@ -1,6 +1,7 @@
 package tesis.hunterzzz.tragoapp.ui.viewmodel
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tesis.hunterzzz.tragoapp.data.model.Drink
@@ -8,8 +9,10 @@ import tesis.hunterzzz.tragoapp.data.model.DrinkEntity
 import tesis.hunterzzz.tragoapp.domain.Repo
 import tesis.hunterzzz.tragoapp.vo.Resource
 import java.lang.Exception
+import javax.inject.Inject
 
-class MainViewModel(private val repo: Repo) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repo: Repo) : ViewModel() {
 
     private val tragosData =  MutableLiveData<String>()
 

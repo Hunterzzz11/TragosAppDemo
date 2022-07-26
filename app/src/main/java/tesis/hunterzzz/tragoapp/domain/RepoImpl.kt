@@ -4,8 +4,9 @@ import tesis.hunterzzz.tragoapp.data.DataSourseImpl
 import tesis.hunterzzz.tragoapp.data.model.Drink
 import tesis.hunterzzz.tragoapp.data.model.DrinkEntity
 import tesis.hunterzzz.tragoapp.vo.Resource
+import javax.inject.Inject
 
-class RepoImpl(private val dataSourse: DataSourseImpl):Repo {
+class RepoImpl @Inject constructor(private val dataSourse: DataSourse):Repo {
     override suspend fun getTragosList(tragoName:String): Resource<List<Drink>> {
         return dataSourse.getTragoByName(tragoName)
     }

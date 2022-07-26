@@ -1,42 +1,32 @@
 package tesis.hunterzzz.tragoapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import tesis.hunterzzz.tragoapp.AppDadabase
 import tesis.hunterzzz.tragoapp.data.DataSourseImpl
 import tesis.hunterzzz.tragoapp.data.model.Drink
 import tesis.hunterzzz.tragoapp.databinding.FragmentFavoritosBinding
 import tesis.hunterzzz.tragoapp.domain.RepoImpl
 import tesis.hunterzzz.tragoapp.ui.viewmodel.MainViewModel
-import tesis.hunterzzz.tragoapp.ui.viewmodel.VMFactory
 import tesis.hunterzzz.tragoapp.vo.Resource
-
-
+@AndroidEntryPoint
 class FavoritosFragment : Fragment(),MainAdapter.onTragoClickListener {
 
     private var _binding: FragmentFavoritosBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> {
-        VMFactory(
-            RepoImpl(
-                DataSourseImpl(
-                    AppDadabase.getDatabase(
-                        requireActivity().applicationContext
-                    )
-                )
-            )
-        )
-    }
+//    @Inject
+//    val viewModel by viewModels<MainViewModel> ()
+    private val viewModel by activityViewModels<MainViewModel>()
     private lateinit var adapter: MainAdapter
 
 

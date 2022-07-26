@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import tesis.hunterzzz.tragoapp.AppDadabase
 import tesis.hunterzzz.tragoapp.R
 import tesis.hunterzzz.tragoapp.data.DataSourseImpl
@@ -19,25 +21,14 @@ import tesis.hunterzzz.tragoapp.data.model.Drink
 import tesis.hunterzzz.tragoapp.databinding.FragmentMainBinding
 import tesis.hunterzzz.tragoapp.domain.RepoImpl
 import tesis.hunterzzz.tragoapp.ui.viewmodel.MainViewModel
-import tesis.hunterzzz.tragoapp.ui.viewmodel.VMFactory
-
+@AndroidEntryPoint
 class MainFragment : Fragment(), MainAdapter.onTragoClickListener {
 
     private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> {
-        VMFactory(
-            RepoImpl(
-                DataSourseImpl(
-                    AppDadabase.getDatabase(
-                        requireActivity().applicationContext
-                    )
-                )
-            )
-        )
-    }
+    private val viewModel by activityViewModels<MainViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
